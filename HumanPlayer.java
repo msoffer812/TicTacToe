@@ -5,21 +5,16 @@ package ticTacToe;
 
 import java.util.InputMismatchException;
 
-public class HumanPlayer implements TicTacToePlayer
+public class HumanPlayer extends TicTacToeGeneralPlayer
 {
-	private String name;				/* Name for user interface purposes */
-	private String symbol;				/* Symbol that we want to mark down on the board */
-	int wins;							/* wins they've achieved while playing */
 	
 	public HumanPlayer(String name, String symbol)
 	{
+		super(name.trim(), symbol.trim());
 		String tempName = name.trim();
 		String tempSymbol = symbol.trim();
 		validateName(tempName);
 		validateSymbol(tempSymbol);
-		wins = 0;
-		this.symbol = tempSymbol;
-		this.name = tempName;
 	}
 	
 	/**
@@ -45,42 +40,6 @@ public class HumanPlayer implements TicTacToePlayer
 			throw new InputMismatchException("Symbol must be one character long");
 		}
 	}
-	/**
-	 * 
-	 * Catch some possible errors
-	 * @return converted player's choice into a Location
-	 */
-	@Override
-	public Location play(int row, int col, int max)
-	{
-		Location location;
-		try
-		{
-			location = new Location(row, col, max);
-		}catch(InputMismatchException e)
-		{
-			return null;
-		}
-		return location;
-	}
-	/**
-	 * 
-	 * @return player's symbol
-	 */
-	@Override
-	public String getSymbol()
-	{
-		return symbol;
-	}
-	/**
-	 * 
-	 * @return player's name
-	 */
-	@Override
-	public String getName()
-	{
-		return name;
-	}
 	
 	/**
 	 * 
@@ -91,22 +50,5 @@ public class HumanPlayer implements TicTacToePlayer
 	public boolean isHuman()
 	{
 		return true;
-	}
-	/**
-	 * 
-	 * Increment the wins achieved
-	 */
-	@Override
-	public void addWin()
-	{
-		wins++;
-	}
-	/**
-	 * @return the amount of wins achieved
-	 */
-	@Override
-	public int getWins()
-	{
-		return this.wins;
 	}
 }

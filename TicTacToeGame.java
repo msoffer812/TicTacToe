@@ -6,13 +6,13 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 
 
-public class TicTacToeGame {
+public class TicTacToeGame implements GeneralGame{
 	private TicTacToeBoard gameBoard;
-	private Queue<TicTacToePlayer> players;
+	private Queue<TicTacToeGeneralPlayer> players;
 	private Scanner in;
 	private final int MAXBOARDSIZE;
 	
-	public TicTacToeGame(Queue<TicTacToePlayer> players, Scanner input, int size)
+	public TicTacToeGame(Queue<TicTacToeGeneralPlayer> players, Scanner input, int size)
 	{
 		MAXBOARDSIZE = size;
 		this.players = players;
@@ -29,9 +29,9 @@ public class TicTacToeGame {
 	public void startGame()
 	{
 		//Declare currentPlayer now, since I don't want to redeclare it in every iteration of the loop
-		TicTacToePlayer currentPlayer = null;
+		TicTacToeGeneralPlayer currentPlayer = null;
 		//Refresh the board, get out all the previous stuff from past games
-		gameBoard = new TicTacToeBoard(MAXBOARDSIZE);
+		gameBoard.resetBoard();
 		boolean gameover = false;
 		while(!isGameOver() && !gameover)
 		{
@@ -57,7 +57,7 @@ public class TicTacToeGame {
 	 * @see playHumanPlayer(Player)
 	 * @see TicTacToeBoard.mark(Location)
 	 */
-	public boolean markDown(TicTacToePlayer currentPlayer)
+	public boolean markDown(TicTacToeGeneralPlayer currentPlayer)
 	{
 		Location whereToMarkDown;
 		boolean result = false;
@@ -83,7 +83,7 @@ public class TicTacToeGame {
 	 * @return the requested Location of the human player
 	 * @see getPlayerInput(String)
 	 */
-	public Location playHumanPlayer(TicTacToePlayer player)
+	public Location playHumanPlayer(TicTacToeGeneralPlayer player)
 	{
 		Location newLocation = null;
 		while(newLocation == null){
@@ -128,7 +128,7 @@ public class TicTacToeGame {
 	/**
 	 * end the game with all the notifications and increment the winner's wins
 	 */
-	public void endGame(TicTacToePlayer winner)
+	public void endGame(TicTacToeGeneralPlayer winner)
 	{
 		if(winner != null)
 		{

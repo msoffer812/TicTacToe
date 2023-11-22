@@ -21,7 +21,7 @@ public class Game
 		while(createNewGame == 1)
 		{
 			printOutRules();
-			Queue<TicTacToePlayer> players = createPlayerQueue(in);
+			Queue<TicTacToeGeneralPlayer> players = createPlayerQueue(in);
 			TicTacToeGame game = new TicTacToeGame(players, in, 3);
 			playAgain = 1;
 			while(playAgain == 1)
@@ -63,7 +63,7 @@ public class Game
 	 * 
 	 * Prints out the current amount of wins each player has so far
 	 */
-	public static void printWins(Queue<TicTacToePlayer> players)
+	public static void printWins(Queue<TicTacToeGeneralPlayer> players)
 	{
 		/*
 		 * Since if we pull out each player in the queue once, 
@@ -74,7 +74,7 @@ public class Game
 		int size = players.size();
 		for(int i=0;i<size;i++)
 		{
-			TicTacToePlayer currPlayer = players.remove();
+			TicTacToeGeneralPlayer currPlayer = players.remove();
 			System.out.println(currPlayer.getName() + "'s: " + currPlayer.getWins());
 			players.add(currPlayer);
 		}
@@ -84,10 +84,10 @@ public class Game
 	 * 
 	 * Prints out who has won the end of the game
 	 */
-	public static void printOutWhoWon(Queue<TicTacToePlayer> players)
+	public static void printOutWhoWon(Queue<TicTacToeGeneralPlayer> players)
 	{
-		TicTacToePlayer player1 = players.remove();
-		TicTacToePlayer player2 = players.remove();
+		TicTacToeGeneralPlayer player1 = players.remove();
+		TicTacToeGeneralPlayer player2 = players.remove();
 		if(player1.getWins() > player2.getWins())
 		{
 			System.out.println("The final winner is " + player1.getName() + " with " + player1.getWins() + " wins!\n");
@@ -107,11 +107,11 @@ public class Game
 	 * @see intUserInput
 	 * @see createHumanPlayer
 	 */
-	public static Queue<TicTacToePlayer> createPlayerQueue(Scanner in)
+	public static Queue<TicTacToeGeneralPlayer> createPlayerQueue(Scanner in)
 	{
-		Queue<TicTacToePlayer> players = new LinkedList<>();
-		TicTacToePlayer player1 = createHumanPlayer(in, 1, "", "");
-		TicTacToePlayer player2 = createHumanPlayer(in, 2, player1.getName(), player1.getSymbol());
+		Queue<TicTacToeGeneralPlayer> players = new LinkedList<>();
+		TicTacToeGeneralPlayer player1 = createHumanPlayer(in, 1, "", "");
+		TicTacToeGeneralPlayer player2 = createHumanPlayer(in, 2, player1.getName(), player1.getSymbol());
 		players.add(player1);
 		players.add(player2);
 		return players;
@@ -124,9 +124,9 @@ public class Game
 	 * @see stringUserInput
 	 * @see HumanPlayer.HumanPlayer()
 	 */
-	public static HumanPlayer createHumanPlayer(Scanner in, int i, String pastName, String pastSymbol)
+	public static TicTacToeGeneralPlayer createHumanPlayer(Scanner in, int i, String pastName, String pastSymbol)
 	{
-		HumanPlayer newPlayer = null;
+		TicTacToeGeneralPlayer newPlayer = null;
 		boolean cont = false;
 		/*
 		 * Loops while the player's info is entered incorrectly
